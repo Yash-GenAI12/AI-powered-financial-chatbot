@@ -1,0 +1,26 @@
+You: What is the total revenue?
+Bot: Apple's total revenue in FY 2025 was $394,320 million. Microsoft's total revenue in FY 2025 was $258,980 million. Tesla's total revenue in FY 2025 was $118,920 million. Combined total revenue in FY 2025 was $772,220 million.
+
+You: What is Apple's total revenue in 2025?
+Bot: Apple's total revenue in FY 2025 was $394,320 million.
+
+You: How has net income changed over the last year?
+Bot: Apple's net income increased from $96,990 million in FY 2024 to $101,560 million in FY 2025 (+4.71%). Microsoft's net income increased from $88,260 million in FY 2024 to $95,120 million in FY 2025 (+7.77%). Tesla's net income increased from $15,000 million in FY 2024 to $17,420 million in FY 2025 (+16.13%).
+
+You: How has Tesla's net income changed over the last year?
+Bot: Tesla's net income increased from $15,000 million in FY 2024 to $17,420 million in FY 2025 (+16.13%).
+
+You: Compare the revenue of Apple, Microsoft, and Tesla
+Bot: FY 2025 total revenue comparison: Apple $394,320 million, Microsoft $258,980 million, Tesla $118,920 million. Apple reported the highest total revenue at $394,320 million.
+
+You: What is the profit margin for Apple in 2025?
+Bot: Apple's net profit margin in FY 2025 was 25.76% (net income $101,560 million on revenue $394,320 million).
+
+You: What is the average liabilities/assets ratio?
+Bot: Liabilities-to-assets ratios in FY 2025: Apple: 75.01% ($292,870 million liabilities / $390,450 million assets); Microsoft: 46.51% ($219,830 million liabilities / $472,670 million assets); Tesla: 38.29% ($48,760 million liabilities / $127,330 million assets). Average ratio across Apple, Microsoft, Tesla: 53.27%.
+
+You: Summarize Tesla's financial performance
+Bot: Tesla: revenue moved from $96,770 million in FY 2023 to $118,920 million in FY 2025 (+22.89%). FY 2025 net income was $17,420 million and operating cash flow was $18,210 million.
+
+You: What is the weather in Boston?
+Bot: I could not map that question to a supported financial query. Try asking about total revenue, net income, assets, liabilities, operating cash flow, year-over-year change, profit margin, or a company comparison. Type 'help' to see examples.

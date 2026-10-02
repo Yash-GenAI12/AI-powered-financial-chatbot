@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BCG GenAI Financial Chatbot</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --accent: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --user: #0369a1;
+      --bot: #1e293b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e3a5f, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.4rem; }
+    p { color: var(--muted); line-height: 1.5; }
+    .sidebar, .chat-shell {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .chip {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .messages {
+      height: 520px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 6px;
+    }
+    .bubble {
+      max-width: 80%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    .bot { align-self: flex-start; background: var(--bot); border: 1px solid #334155; }
+    .user { align-self: flex-end; background: var(--user); }
+    form {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0b1220;
+      color: var(--text);
+    }
+    button.send {
+      background: var(--accent);
+      color: #082f49;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      .messages { height: 420px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h1>Financial Chatbot</h1>
+      <p>BCG Forage GenAI prototype covering {{ companies }} for FY {{ years }}. Figures are US$ millions from the Task 1 10-K analysis.</p>
+      <p><strong>Try a query</strong></p>
+      {% for example in examples %}
+      <button class="chip" type="button" data-query="{{ example }}">{{ example }}</button>
+      {% endfor %}
+    </aside>
+    <section class="chat-shell">
+      <div class="messages" id="messages"></div>
+      <form id="chat-form">
+        <input id="message" name="message" autocomplete="off" placeholder="Ask about revenue, net income, assets, or comparisons">
+        <button class="send" type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+  <script>
+    const messages = document.getElementById("messages");
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("message");
+
+    function addBubble(text, role) {
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${role}`;
+      bubble.textContent = text;
+      messages.appendChild(bubble);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    async function sendMessage(text) {
+      const message = text.trim();
+      if (!message) return;
+      addBubble(message, "user");
+      input.value = "";
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+      const data = await response.json();
+      addBubble(data.reply, "bot");
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      sendMessage(input.value);
+    });
+
+    document.querySelectorAll(".chip").forEach((button) => {
+      button.addEventListener("click", () => sendMessage(button.dataset.query));
+    });
+
+    addBubble("Hello. Ask a financial question about Apple, Microsoft, or Tesla, or choose an example on the left.", "bot");
+  </script>
+</body>
+</html>
